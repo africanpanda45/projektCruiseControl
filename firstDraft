@@ -1,0 +1,140 @@
+import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
+
+public class MainFrame2kommaNoll extends Application {
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+    @Override
+    public void start(Stage primaryStage) {
+        Scene start = new Scene(startPage(), 1273, 645);
+
+        //Sätter scen och startar/viar programmet.
+        primaryStage.setScene(start);
+        primaryStage.setTitle("CCBS");
+        primaryStage.show();
+    }
+
+    private Pane startPage() {
+        Pane mainPane = new Pane();
+        Rectangle bakgrund = new Rectangle(0, 0, 1273, 150);
+        bakgrund.setFill(Color.DODGERBLUE);
+        Rectangle bakgrundNere = new Rectangle(0, 0, 1273, 645);
+        bakgrundNere.setFill(Color.ANTIQUEWHITE);
+        DropShadow skugga = new DropShadow();
+        Label logaText = new Label("Cruise Control");
+        logaText.setFont(Font.font("Palatino Linotype", 68));
+        logaText.setLayoutX(430);
+        logaText.setLayoutY(15);
+        logaText.setTextFill(Color.WHITE);
+        logaText.setEffect(skugga);
+
+        ListView<String> menuVal = new ListView<>();
+        menuVal.setPrefWidth(500);
+        menuVal.setPrefHeight(30);
+        menuVal.setLayoutX(402);
+        menuVal.setLayoutY(120);
+        menuVal.setOrientation(Orientation.HORIZONTAL);
+        menuVal.setPadding(new Insets(0, 0, 0, 0));
+        menuVal.setBackground(
+                new Background(new BackgroundFill(Color.ANTIQUEWHITE, null, null))
+        );
+        menuVal.getItems().addAll("Boka nu",
+                "Destinationer", "Ombord på våra fartyg",
+                "Samarbetspartners", "Kontakt", "Om oss");
+
+        menuVal.getSelectionModel().selectedIndexProperty().addListener((v, oldV, newV) -> {
+
+        });
+        mainPane.getChildren().addAll(bakgrundNere, bakgrund, logaText, startingPagePlusChangeScene(),menuVal);
+        return mainPane;
+    }
+
+    private Pane startingPagePlusChangeScene() {
+
+        Pane starting = new Pane();
+        //Image för starting page
+        Image v1 = new Image("file:images/projekt/ships/onboardLuxuryScaledFirst.jpg");
+        ImageView v1view = new ImageView(v1);
+        v1view.setX(349.5);
+        v1view.setY(150.2);
+
+        //Sidoheader upper-left
+        Label headerUppLeft = new Label("Boka din nästa upplevelse med oss!");
+        headerUppLeft.setFont(Font.font("Helvetica", 20));
+        headerUppLeft.setLayoutX(10);
+        headerUppLeft.setLayoutY(160);
+
+        //Sidotext upper-left
+        Text sidoText = new Text();
+        sidoText.setText("Vi är Nordens största bokningssajt för kryssningar. \nHos oss hittar du resor inom alla kategorier där vi\nerbjuder alternativ för dig som vill koppla av med\nfamiljen eller vill delta i festliga sammanhang och\nmycket, mycket mer!");
+        sidoText.setFont(Font.font("Helvetica", 13));
+        sidoText.setLayoutX(10);
+        sidoText.setLayoutY(208);
+
+        //Sidotext center-left
+        Text sidoText2 = new Text();
+        sidoText2.setText("Är du intresserad av att festa loss i en vecka?" +
+                " Vill du\nkanske ta det lugnt i solstolen eller ta med barnen\npå en upplevelse de sent kommer glömma?\n" +
+                "Cruise Control erbjuder något för alla åldrar.");
+        sidoText2.setLayoutX(10);
+        sidoText2.setLayoutY(310);
+        sidoText2.setFont(Font.font("Helvetica", 13));
+
+        //Sidoheader lower-left
+        Text tillShips = new Text();
+        tillShips.setText("Läs mer om våra fartyg här");
+        tillShips.setFont(Font.font("Helvetica", 13));
+        tillShips.setLayoutX(10);
+        tillShips.setLayoutY(400);
+
+        //Button lower-left VisaShips
+        Image vid = new Image("File:images/projekt/knappar/vidareScaled.jpg");
+        ImageView vidareView = new ImageView(vid);
+        Button visaShips = new Button();
+        //Lägg till actions för knappar
+        //HÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄR
+        visaShips.setGraphic(vidareView);
+        visaShips.setLayoutX(175);
+        visaShips.setLayoutY(383);
+
+        //Sidoheader lower-left 2
+        Text sammarbetsP = new Text();
+        sammarbetsP.setText("Läs mer om våra samarbets-\npartners här");
+        sammarbetsP.setFont(Font.font("Helvetica", 13));
+        sammarbetsP.setLayoutX(10);
+        sammarbetsP.setLayoutY(430);
+
+        //Button lower-left visaSammarbetspartners
+        Image vid2 = new Image("File:images/projekt/knappar/vidareScaled.jpg");
+        ImageView vidareView2 = new ImageView(vid2);
+        Button visaSamP = new Button();
+
+        //Lägg till actions för knappar
+        //HÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄR
+        visaSamP.setGraphic(vidareView2);
+        visaSamP.setLayoutX(175);
+        visaSamP.setLayoutY(415);
+        //Lägger till alla noder
+        starting.getChildren().addAll(v1view, headerUppLeft, sidoText, sidoText2, tillShips, sammarbetsP, visaShips, visaSamP);
+        return starting;
+    }
+}
