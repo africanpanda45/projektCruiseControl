@@ -25,15 +25,7 @@ public class MainFrame2kommaNoll extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        Scene start = new Scene(startPage(), 1273, 645);
 
-        //Sätter scen och startar/viar programmet.
-        primaryStage.setScene(start);
-        primaryStage.setTitle("CCBS");
-        primaryStage.show();
-    }
-
-    private Pane startPage() {
         Pane mainPane = new Pane();
         Rectangle bakgrund = new Rectangle(0, 0, 1273, 150);
         bakgrund.setFill(Color.DODGERBLUE);
@@ -62,10 +54,15 @@ public class MainFrame2kommaNoll extends Application {
                 "Samarbetspartners", "Kontakt", "Om oss");
 
         menuVal.getSelectionModel().selectedIndexProperty().addListener((v, oldV, newV) -> {
-
+                
         });
         mainPane.getChildren().addAll(bakgrundNere, bakgrund, logaText, startingPagePlusChangeScene(),menuVal);
-        return mainPane;
+        Scene start = new Scene(mainPane, 1273, 645);
+
+        //Sätter scen och startar/viar programmet.
+        primaryStage.setScene(start);
+        primaryStage.setTitle("CCBS");
+        primaryStage.show();
     }
 
     private Pane startingPagePlusChangeScene() {
