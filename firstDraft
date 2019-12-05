@@ -8,9 +8,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -25,12 +23,12 @@ public class MainFrame2kommaNoll extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        VBox mainStage = new VBox();
 
-        Pane mainPane = new Pane();
+        //Pane uppe för logga och bakgrund
+        Pane paneUppe = new Pane();
         Rectangle bakgrund = new Rectangle(0, 0, 1273, 150);
         bakgrund.setFill(Color.DODGERBLUE);
-        Rectangle bakgrundNere = new Rectangle(0, 0, 1273, 645);
-        bakgrundNere.setFill(Color.ANTIQUEWHITE);
         DropShadow skugga = new DropShadow();
         Label logaText = new Label("Cruise Control");
         logaText.setFont(Font.font("Palatino Linotype", 68));
@@ -54,20 +52,20 @@ public class MainFrame2kommaNoll extends Application {
                 "Samarbetspartners", "Kontakt", "Om oss");
 
         menuVal.getSelectionModel().selectedIndexProperty().addListener((v, oldV, newV) -> {
-                
+                int i = menuVal.getSelectionModel().getSelectedIndex();
+                if(i == 0){
+
+                }
         });
-        mainPane.getChildren().addAll(bakgrundNere, bakgrund, logaText, startingPagePlusChangeScene(),menuVal);
-        Scene start = new Scene(mainPane, 1273, 645);
 
-        //Sätter scen och startar/viar programmet.
-        primaryStage.setScene(start);
-        primaryStage.setTitle("CCBS");
-        primaryStage.show();
-    }
+        //Lägg till barnen i paneUppe
+        paneUppe.getChildren().addAll(bakgrund,logaText,menuVal);
 
-    private Pane startingPagePlusChangeScene() {
+        //Skapa den nedre
+        Pane paneNere = new Pane();
+        Rectangle bakgrundNere = new Rectangle(0, 150, 1273, 645);
+        bakgrundNere.setFill(Color.ANTIQUEWHITE);
 
-        Pane starting = new Pane();
         //Image för starting page
         Image v1 = new Image("file:images/projekt/ships/onboardLuxuryScaledFirst.jpg");
         ImageView v1view = new ImageView(v1);
@@ -131,7 +129,17 @@ public class MainFrame2kommaNoll extends Application {
         visaSamP.setLayoutX(175);
         visaSamP.setLayoutY(415);
         //Lägger till alla noder
-        starting.getChildren().addAll(v1view, headerUppLeft, sidoText, sidoText2, tillShips, sammarbetsP, visaShips, visaSamP);
-        return starting;
+        paneNere.getChildren().addAll(bakgrundNere,v1view, headerUppLeft, sidoText, sidoText2, tillShips, sammarbetsP, visaShips, visaSamP);
+
+        //addera till vboxen
+        mainStage.getChildren().addAll(paneUppe,paneNere);
+
+        //Skapar scen
+        Scene start = new Scene(mainStage, 1273, 645);
+
+        //Sätter scen och startar/viar programmet.
+        primaryStage.setScene(start);
+        primaryStage.setTitle("CCBS");
+        primaryStage.show();
     }
 }
