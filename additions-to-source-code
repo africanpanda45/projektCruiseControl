@@ -1,4 +1,4 @@
-
+//Kod angående Om Oss på UI
 VBox vboxOmOss = new VBox();
         vboxOmOss.setPadding(new Insets(10));
 
