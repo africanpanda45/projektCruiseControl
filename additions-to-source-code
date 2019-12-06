@@ -1,1 +1,25 @@
+//Kod för text Om Oss delen av UI
+VBox vboxOmOss = new VBox();
+        vboxOmOss.setPadding(new Insets(10));
 
+        Text rubrikOmOss = new Text();
+        rubrikOmOss.setText("Cruise Control AB");
+        rubrikOmOss.setFont(Font.font("Arial Black", 25));
+
+        Text beskrivning = new Text();
+        beskrivning.setText("Cruise Control är Nordens största bokningssajt för kryssningar. Verksamheten drivs från Växjö men vi erbjuder avgångar från flera olika städer.\n" +
+                "\n" +
+                "Cruise Control AB är ett privatägt företag som har målet att erbjuda er kunder resor för alla tillfällen. Bolaget äger inga fartyg men sammarbetar har sammarbeten med flera stora bolag för att erbjuda en resa till bästa förmånliga pris.\n" +
+                "\n" +
+                "Verksamheten tar stort ansvar gällande kraven på säkerhet, komfort och miljöhänsyn. Däräför är vi säkra på att våra tjänster som vi erbjuder kommer att vara enligt våra höga krav och kommer att tillfredställa alla våra kunder. Cruise Controls system uppdateras och förbättras regelbundet så att allt via våran hemsida ska fungera så smidigt som möjligt. \n" +
+                "\n" +
+                "Bolaget jobbar nu med att i framtiden kunna erbjuda hotell för varje destination som vi erbjuder men detta kommer att komma 2022.\n" +
+                "\n" +
+                "Under 2019 reste 9.8 miljoner passagerare med fartygen och rederiet transporterade närmare 365 000 fraktenheter. \n" +
+                "\n" +
+                "Cruise Control erbjuder något för alla åldrar och du är välkommen att kontakta oss när du vill!");
+        beskrivning.setWrappingWidth(450);
+        beskrivning.setFont(Font.font(15));
+
+        vboxOmOss.getChildren().addAll(rubrikOmOss, beskrivning);
+        vboxOmOss.setAlignment(Pos.CENTER);
