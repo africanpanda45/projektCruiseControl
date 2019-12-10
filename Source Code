@@ -81,46 +81,41 @@ public class MainFrame2kommaNoll extends Application {
             {
                 bottom.getChildren().removeAll(bottom.getChildren());
                 //Bakgrunden - finns alla val 0-6 (1-7)
-                Rectangle textBox1 = new Rectangle(455, 10, 390, 480);
+                Rectangle textBox1 = new Rectangle(340, 10, 620, 480);
                 textBox1.setFill(Color.LINEN);
                 //ruta för att hålla all text.
                 VBox textRutaHem = new VBox();
-                textRutaHem.setLayoutX(475);
-                textRutaHem.setLayoutY(40);
+                textRutaHem.setLayoutX(375);
+                textRutaHem.setLayoutY(30);
                 Label headerUppLeft = new Label("Boka din nästa upplevelse med oss!");
                 headerUppLeft.setFont(Font.font("Helvetica", FontWeight.BOLD, 20));
                 Text sidoText = new Text();
-                sidoText.setFont(Font.font("Helvetica",13));
-                sidoText.setText("Vi är Nordens största bokningssajt för kryssningar. \n" +
-                        "Hos oss hittar du resor inom alla kategorier där vi\n" +
-                        "erbjuder alternativ för dig som vill koppla av med\n" +
-                        "familjen eller vill delta i festliga sammanhang och\n" +
-                        "mycket, mycket mer!\n" +
-                        "\n" +
-                        "Är du intresserad av att festa loss i en vecka? Vill du\n" +
-                        "kanske ta det lugnt i solstolen eller ta med barnen\n" +
-                        "på en upplevelse de sent kommer glömma? Cruise\n" +
-                        "Control erbjuder något för alla åldrar." +
+                sidoText.setFont(Font.font("Helvetica",14));
+                sidoText.setText("Vi är Nordens största bokningssajt för kryssningar. Hos oss hittar du resor inom alla kategorier " +
+                        "där vi erbjuder alternativ för dig som vill koppla av med familjen eller vill delta i festliga sammanhang och mycket, mycket mer!" +
+                        "\n\nÄr du intresserad av att festa loss i en vecka? Vill du kanske ta det lugnt i solstolen eller ta med " +
+                        "barnen på en upplevelse de sent kommer glömma? Cruise Control erbjuder något för alla åldrar." +
                         "\n\n" +
                         "Läs mer om våra fartyg här" +
                         "\n\n" +
                         "Läs mer om våra samarbets-\npartners här");
 
+                sidoText.setWrappingWidth(550);
                 //Knapp för att visa skeppen
                 Image vid = new Image("File:images/projekt/knappar/vidareScaled.jpg");
                 ImageView vidareView = new ImageView(vid);
                 Button visaShips = new Button();
                 visaShips.setGraphic(vidareView);
-                visaShips.setLayoutX(650);
-                visaShips.setLayoutY(258);//383
+                visaShips.setLayoutX(560);
+                visaShips.setLayoutY(208);
 
                 //Knapp för att läser mer om våra sammarbetspartners.
                 Image vid2 = new Image("File:images/projekt/knappar/vidareScaled.jpg");
                 ImageView vidareView2 = new ImageView(vid2);
                 Button visaSamP = new Button();
                 visaSamP.setGraphic(vidareView2);
-                visaSamP.setLayoutX(650);
-                visaSamP.setLayoutY(295);
+                visaSamP.setLayoutX(560);
+                visaSamP.setLayoutY(248);
 
                 textRutaHem.getChildren().addAll(headerUppLeft,sidoText);
                 bottom.getChildren().addAll(bokaImgView,textBox1,textRutaHem,visaSamP,visaShips);
@@ -192,7 +187,20 @@ public class MainFrame2kommaNoll extends Application {
                 Rectangle textBox1 = new Rectangle(340, 10, 620, 480);
                 textBox1.setFill(Color.LINEN);
 
-                bottom.getChildren().addAll(bokaImgView, textBox1);
+                Rectangle sam = new Rectangle(660,60,270,140);
+                sam.setFill(Color.WHITESMOKE);
+                sam.setStroke(Color.PEACHPUFF);
+                Image elwinPhoto = new Image("file:images/projekt/samarbete/elwingScaled.jpg");
+                ImageView elwin = new ImageView(elwinPhoto);
+                elwin.setY(60);
+                elwin.setX(360);
+
+                Image lifePhoto = new Image("file:images/projekt/samarbete/lifeEventScaled.jpg");
+                ImageView life = new ImageView(lifePhoto);
+                life.setY(260);
+                life.setX(360);
+
+                bottom.getChildren().addAll(bokaImgView, textBox1,sam,elwin,life);
             }
             if (a == 5) //Kontakt
             {
@@ -210,10 +218,23 @@ public class MainFrame2kommaNoll extends Application {
                 Rectangle textBox1 = new Rectangle(340, 10, 620, 480);
                 textBox1.setFill(Color.LINEN);
 
-                Text omOssText = new Text(365, 40, "Insert Text Insert Text Insert Text Insert Text  \nInsert Text Insert Text Insert Text Insert Text \n" +
-                        "Insert Text Insert Text Insert Text Insert Text \nInsert Text Insert Text Insert Text Insert Text ");
-                omOssText.setFont(Font.font("Helvetica", FontWeight.BOLD, 20));
-                bottom.getChildren().addAll(bokaImgView, textBox1, omOssText);
+                Text rubrikOmOss = new Text(365, 50, "Cruise Control AB");
+                rubrikOmOss.setFont(Font.font("Helvetica", FontWeight.BOLD,20));
+
+                Text omOssText = new Text(365, 80, "Cruise Control är Nordens största bokningssajt för kryssningar. Verksamheten drivs från Växjö men vi erbjuder avgångar från flera olika städer.\n" +
+                        "\n" +
+                        "Cruise Control AB är ett privatägt företag som har målet att erbjuda er kunder resor för alla tillfällen. Bolaget äger inga fartyg men sammarbetar har sammarbeten med flera stora bolag för att erbjuda en resa till bästa förmånliga pris.\n" +
+                        "\n" +
+                        "Verksamheten tar stort ansvar gällande kraven på säkerhet, komfort och miljöhänsyn. Däräför är vi säkra på att våra tjänster som vi erbjuder kommer att vara enligt våra höga krav och kommer att tillfredställa alla våra kunder. Cruise Controls system uppdateras och förbättras regelbundet så att allt via våran hemsida ska fungera så smidigt som möjligt.\n" +
+                        "\n" +
+                        "Bolaget jobbar nu med att i framtiden kunna erbjuda hotell för varje destination som vi erbjuder men detta kommer att komma 2022.\n" +
+                        "\n" +
+                        "Under 2019 reste 9.8 miljoner passagerare med fartygen och rederiet transporterade närmare 365 000 fraktenheter.\n" +
+                        "\n" +
+                        "Cruise Control erbjuder något för alla åldrar och du är välkommen att kontakta oss när du vill!");
+                omOssText.setFont(Font.font("Helvetica", 14));
+                omOssText.setWrappingWidth(580);
+                bottom.getChildren().addAll(bokaImgView, textBox1, rubrikOmOss, omOssText);
             }
         });
 
@@ -221,47 +242,43 @@ public class MainFrame2kommaNoll extends Application {
         top.getChildren().addAll(bakgrund, logaText, menuVal);
 
         //Skapar och skapar en bakgrund och sida för välkomstskärmen.
-        Rectangle textBox1 = new Rectangle(455, 10, 390, 480);
+        Rectangle textBox1 = new Rectangle(340, 10, 620, 480);
         textBox1.setFill(Color.LINEN);
         //Innehåller all text
         VBox startRutan = new VBox();
-        startRutan.setLayoutX(475);
-        startRutan.setLayoutY(40);
+        startRutan.setLayoutX(375);
+        startRutan.setLayoutY(30);
 
         Label headerUppLeft = new Label("Boka din nästa upplevelse med oss!");
         headerUppLeft.setFont(Font.font("Helvetica", FontWeight.BOLD, 20));
         Text sidoText = new Text();
-        sidoText.setFont(Font.font("Helvetica",13));
-        sidoText.setText("Vi är Nordens största bokningssajt för kryssningar. \n" +
-                "Hos oss hittar du resor inom alla kategorier där vi\n" +
-                "erbjuder alternativ för dig som vill koppla av med\n" +
-                "familjen eller vill delta i festliga sammanhang och\n" +
-                "mycket, mycket mer!\n" +
-                "\n" +
-                "Är du intresserad av att festa loss i en vecka? Vill du\n" +
-                "kanske ta det lugnt i solstolen eller ta med barnen\n" +
-                "på en upplevelse de sent kommer glömma? Cruise\n" +
-                "Control erbjuder något för alla åldrar." +
+        sidoText.setFont(Font.font("Helvetica",14));
+        sidoText.setText("Vi är Nordens största bokningssajt för kryssningar. Hos oss hittar du resor inom alla kategorier " +
+                "där vi erbjuder alternativ för dig som vill koppla av med familjen eller vill delta i festliga sammanhang och mycket, mycket mer!" +
+                "\n\nÄr du intresserad av att festa loss i en vecka? Vill du kanske ta det lugnt i solstolen eller ta med " +
+                "barnen på en upplevelse de sent kommer glömma? Cruise Control erbjuder något för alla åldrar." +
                 "\n\n" +
                 "Läs mer om våra fartyg här" +
                 "\n\n" +
                 "Läs mer om våra samarbets-\npartners här");
+
+        sidoText.setWrappingWidth(550);
 
         //Knapp för att visa skeppen
         Image vid = new Image("File:images/projekt/knappar/vidareScaled.jpg");
         ImageView vidareView = new ImageView(vid);
         Button visaShips = new Button();
         visaShips.setGraphic(vidareView);
-        visaShips.setLayoutX(650);
-        visaShips.setLayoutY(258);//383
+        visaShips.setLayoutX(560);
+        visaShips.setLayoutY(208);//383
 
         //Knapp för att läser mer om våra sammarbetspartners.
         Image vid2 = new Image("File:images/projekt/knappar/vidareScaled.jpg");
         ImageView vidareView2 = new ImageView(vid2);
         Button visaSamP = new Button();
         visaSamP.setGraphic(vidareView2);
-        visaSamP.setLayoutX(650);
-        visaSamP.setLayoutY(295);
+        visaSamP.setLayoutX(560);
+        visaSamP.setLayoutY(248);
 
         startRutan.getChildren().addAll(headerUppLeft,sidoText);
         bottom.getChildren().addAll(bokaImgView,textBox1,startRutan,visaShips,visaSamP);
