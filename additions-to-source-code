@@ -1,3 +1,46 @@
+
+if (a == 4) //Samarbetspartners
+            {
+                bottom.getChildren().removeAll(bottom.getChildren());
+
+                Rectangle textBox1 = new Rectangle(340, 10, 620, 480);
+                textBox1.setFill(Color.LINEN);
+
+                Text textElwin = new Text(670, 80,"Cruise Control är stolta sammarbetspartners med Elwin & CO." +
+                        "\n\nE & CO levererar mat till olika företag och privatpersoner och har " +
+                        "samarbetsavtal med flera konferensanläggningar, företag och festlokaler i Stockholm.");
+                textElwin.setFont(Font.font("Helvetica", 14));
+                textElwin.setWrappingWidth(250);
+
+                Rectangle sam = new Rectangle(660,60,270,140);
+                sam.setFill(Color.WHITESMOKE);
+                sam.setStroke(Color.PEACHPUFF);
+
+                Text textLifeEvent = new Text(670, 270, "För att kunna erbjuda våra kunder med bäst underhållning " +
+                        "har vi LifeEvent som ansvariga för att erbjuda all er underhållning på våra fartyg. " +
+                        "De är ledande inom event planering och har vunnit priser som exempelvis \"Nordens Bästa Event företag\".");
+                textLifeEvent.setFont(Font.font("Helvetica", 14));
+                textLifeEvent.setWrappingWidth(250);
+
+                Rectangle sam1 = new Rectangle(660,250,270,140);
+                sam1.setFill(Color.WHITESMOKE);
+                sam1.setStroke(Color.PEACHPUFF);
+
+                Image elwinPhoto = new Image("file:images/projekt/samarbete/elwingScaled.jpg");
+                ImageView elwin = new ImageView(elwinPhoto);
+                elwin.setY(60);
+                elwin.setX(360);
+
+                Image lifePhoto = new Image("file:images/projekt/samarbete/lifeEventScaled.jpg");
+                ImageView life = new ImageView(lifePhoto);
+                life.setY(260);
+                life.setX(360);
+
+                bottom.getChildren().addAll(bokaImgView, textBox1, sam,sam1, elwin,life, textElwin, textLifeEvent);
+            }
+
+
+
 if (a == 6)//Om oss
             {
                 bottom.getChildren().removeAll(bottom.getChildren());
