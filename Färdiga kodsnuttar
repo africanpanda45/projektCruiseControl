@@ -14,7 +14,7 @@
 
 
 
-
+//Koden för sammarbetspartners, är text om de två sammarbetspartners som vi har
 if (a == 4) //Samarbetspartners
             {
                 bottom.getChildren().removeAll(bottom.getChildren());
@@ -54,9 +54,11 @@ if (a == 4) //Samarbetspartners
 
                 bottom.getChildren().addAll(bokaImgView, textBox1, sam,sam1, elwin,life, textElwin, textLifeEvent);
             }
+            
+            -Bravo
 
 
-
+//Kod som beskriver cruise control lite smått o gott
 if (a == 6)//Om oss
             {
                 bottom.getChildren().removeAll(bottom.getChildren());
@@ -83,6 +85,7 @@ if (a == 6)//Om oss
                 omOssText.setWrappingWidth(580);
                 bottom.getChildren().addAll(bokaImgView, textBox1, rubrikOmOss, omOssText);
             }
+            -Bravo
             
             
             
