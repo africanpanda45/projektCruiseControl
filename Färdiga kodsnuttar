@@ -160,3 +160,51 @@ if (a == 6)//Om oss
 
                 bottom.getChildren().addAll(bokaImgView, partyRec, partyBox,partyText, luxBox,luxText, childBox, oldBox,oldText , partyB, luxuryL, childrenV, childText, opV);
             }
+            
+            
+            
+            
+           //Koden berättar för resenären hur man kontaktar Cruise Control per mail eller telefon och ger även resenären möjlighet att antingen kontakta Cruise Control som privatperson eller företagskund. Koden läggs in mellan samarbetspartner och om oss
+-Daniel
+
+
+if (a == 5) //Kontakt
+
+{
+
+   bottom.getChildren().removeAll(bottom.getChildren());
+
+
+
+   Rectangle textBox1 = new Rectangle(340, 10, 620, 480);
+
+
+
+   textBox1.setFill(Color.LINEN);
+   Text RubrikText = new Text(510, 40, "Kontakta CruiseControl");
+   Text KontaktText = new Text(365, 90, "För att komma i kontakt med oss se nedan: \n " +
+           " \n" +
+           "E-Post: kundtjanst@cruisecontrol.se \n " +
+           " \n" +
+           "Telefon 08-17 Måndag - Söndag \n " +
+           "\n" +
+           "Bokningsfrågor privatperson: 0480-677 677 \n " +
+           " \n" +
+           "Fakturafrågor privatperson: 0480-688 688 \n " +
+           " \n" +
+           "Bokningsfrågor företag: 0480-699 699 \n " +
+           " \n " +
+           "Fakturafrågor företag: 0480-700 000 \n " +
+           " \n " +
+           " Vi besvarar alla samtal och mail så snabbt som möjligt! \n");
+
+           KontaktText.setFont(Font.font("Helvetica", FontWeight.BOLD, 15));
+           RubrikText.setFont(Font.font("Helvetica", FontWeight.NORMAL, 30));
+
+   bottom.getChildren().addAll(bokaImgView, textBox1, KontaktText, RubrikText);
+
+
+   bottom.getChildren().addAll(bokaImgView, textBox1);
+
+}
+
