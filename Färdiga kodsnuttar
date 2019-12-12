@@ -83,3 +83,80 @@ if (a == 6)//Om oss
                 omOssText.setWrappingWidth(580);
                 bottom.getChildren().addAll(bokaImgView, textBox1, rubrikOmOss, omOssText);
             }
+            
+            
+            
+            
+            // Ombord på fartyg. Denna kod beskriver de olika fartygen samt vad för aktiviteter och dylikt som finns på fartyget. Inkluderar
+            också bilder som ni behöver ladda ner. Denna koden ska läggas mellan destinationer och sammarbetspartner. -Pontus
+            
+            if (a == 3) //Ombord på fartyg
+            {
+                bottom.getChildren().removeAll(bottom.getChildren());
+
+                //Skapar Ombord på fartyg
+                Rectangle partyRec = new Rectangle(340, 10, 620, 480);
+                partyRec.setFill(Color.LINEN);
+                Image party = new Image("file:images/partyBoatScaled.jpg");
+                ImageView partyB = new ImageView(party);
+                partyB.setY(20);
+                partyB.setX(365);
+                Rectangle partyBox = new Rectangle(365, 140, 260, 98);
+                partyBox.setFill(Color.WHITESMOKE);
+                partyBox.setStroke(Color.PEACHPUFF);
+                Text partyText = new Text(365,150,"Detta fartyget är som gjort för en riktig \n"+
+                        "fesprisse som kan välja att ta en drink på \n"+
+                        "någon av de tjugo olika barerna som finns att \n"+
+                        "välja mellan. Är du mer dansant av dig kan \n" +
+                        "du någon av de 5 olika dansgolv som finns\n" +
+                        "tillänglig på fartyget."
+                        );
+                partyText.setFont(Font.font("Helvetica",13));
+
+
+                Image luxury = new Image("file:images/onboardLuxuryInsideScaled.jpg");
+                ImageView luxuryL = new ImageView(luxury);
+                luxuryL.setY(245);
+                luxuryL.setX(365);
+                Rectangle luxBox = new Rectangle(365, 380, 260, 98);
+                luxBox.setFill(Color.WHITESMOKE);
+                luxBox.setStroke(Color.PEACHPUFF);
+                Text luxText = new Text(365,390,"Vill du åka på en exklusiv resa är detta \n"+
+                        "fartyget ett bra val. Njut av femstjärnig \n"+
+                        "service och mat från alla världens hörn. \n" +
+                        "Vi kan också erbjuda ett brett utbud av\n" +
+                        "spatjänster som massage,kallbad osv. ");
+                luxText.setFont(Font.font("Helvetica",13));
+
+                Image children = new Image("file:images/onboardChildrenSlideScaled.jpg");
+                ImageView childrenV = new ImageView(children);
+                childrenV.setY(20);
+                childrenV.setX(675);
+                Rectangle childBox = new Rectangle(675, 140, 260, 98);
+                childBox.setFill(Color.WHITESMOKE);
+                childBox.setStroke(Color.PEACHPUFF);
+                Text childText = new Text(675,150,"Har du barn men vill trots detta  \n" +
+                        "kunna njuta av en avkopplande semester \n "+
+                        "är denna resa någonting för dig. På detta  \n" +
+                        " fartyg erbjuds en mängd olika aktiviteter för  \n" +
+                        " både barn samt vuxna.");
+                childText.setFont(Font.font("Helvetica",13));
+
+
+                Image oldpeople = new Image("file:images/onboardOldPeopleExploreScaled.jpg");
+                ImageView opV = new ImageView(oldpeople);
+                opV.setY(245);
+                opV.setX(675);
+                Rectangle oldBox = new Rectangle(675, 380, 260, 98);
+                oldBox.setFill(Color.WHITESMOKE);
+                oldBox.setStroke(Color.PEACHPUFF);
+                Text oldText = new Text(675,390,"För er äldre resenärer som \n" +
+                        "längtar efter en avkopplande resa är detta\n" +
+                        "fartyg ett säkert val. Här kan du njuta av en\n" +
+                        "semester i din egna takt. Aktiviteter som\n "+
+                        "boule och bridge finns tillängliga");
+                oldText.setFont(Font.font("Helvetica",13));
+
+
+                bottom.getChildren().addAll(bokaImgView, partyRec, partyBox,partyText, luxBox,luxText, childBox, oldBox,oldText , partyB, luxuryL, childrenV, childText, opV);
+            }
