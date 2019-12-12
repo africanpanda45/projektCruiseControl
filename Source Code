@@ -146,39 +146,68 @@ public class MainFrame2kommaNoll extends Application {
                 //Skapar Ombord på fartyg
                 Rectangle partyRec = new Rectangle(340, 10, 620, 480);
                 partyRec.setFill(Color.LINEN);
-                Image party = new Image("file:images/projekt/ships/partyBoatScaled.jpg");
+                Image party = new Image("file:images/partyBoatScaled.jpg");
                 ImageView partyB = new ImageView(party);
                 partyB.setY(20);
                 partyB.setX(365);
                 Rectangle partyBox = new Rectangle(365, 140, 260, 98);
                 partyBox.setFill(Color.WHITESMOKE);
                 partyBox.setStroke(Color.PEACHPUFF);
+                Text partyText = new Text(365,150,"Detta fartyget är som gjort för en riktig \n"+
+                        "fesprisse som kan välja att ta en drink på \n"+
+                        "någon av de tjugo olika barerna som finns att \n"+
+                        "välja mellan. Är du mer dansant av dig kan \n" +
+                        "du någon av de 5 olika dansgolv som finns\n" +
+                        "tillänglig på fartyget."
+                );
+                partyText.setFont(Font.font("Helvetica",13));
 
-                Image luxury = new Image("file:images/projekt/ships/onboardLuxuryInsideScaled.jpg");
+
+                Image luxury = new Image("file:images/onboardLuxuryInsideScaled.jpg");
                 ImageView luxuryL = new ImageView(luxury);
                 luxuryL.setY(245);
                 luxuryL.setX(365);
                 Rectangle luxBox = new Rectangle(365, 380, 260, 98);
                 luxBox.setFill(Color.WHITESMOKE);
                 luxBox.setStroke(Color.PEACHPUFF);
+                Text luxText = new Text(365,390,"Vill du åka på en exklusiv resa är detta \n"+
+                        "fartyget ett bra val. Njut av femstjärnig \n"+
+                        "service och mat från alla världens hörn. \n" +
+                        "Vi kan också erbjuda ett brett utbud av\n" +
+                        "spatjänster som massage,kallbad osv. ");
+                luxText.setFont(Font.font("Helvetica",13));
 
-                Image children = new Image("file:images/projekt/ships/onboardChildrenSlideScaled.jpg");
+                Image children = new Image("file:images/onboardChildrenSlideScaled.jpg");
                 ImageView childrenV = new ImageView(children);
                 childrenV.setY(20);
                 childrenV.setX(675);
                 Rectangle childBox = new Rectangle(675, 140, 260, 98);
                 childBox.setFill(Color.WHITESMOKE);
                 childBox.setStroke(Color.PEACHPUFF);
-                Image oldpeople = new Image("file:images/projekt/ships/onboardOldPeopleExploreScaled.jpg");
+                Text childText = new Text(675,150,"Har du barn men vill trots detta  \n" +
+                        "kunna njuta av en avkopplande semester \n "+
+                        "är denna resa någonting för dig. På detta  \n" +
+                        " fartyg erbjuds en mängd olika aktiviteter för  \n" +
+                        " både barn samt vuxna.");
+                childText.setFont(Font.font("Helvetica",13));
+
+
+                Image oldpeople = new Image("file:images/onboardOldPeopleExploreScaled.jpg");
                 ImageView opV = new ImageView(oldpeople);
                 opV.setY(245);
                 opV.setX(675);
                 Rectangle oldBox = new Rectangle(675, 380, 260, 98);
                 oldBox.setFill(Color.WHITESMOKE);
                 oldBox.setStroke(Color.PEACHPUFF);
+                Text oldText = new Text(675,390,"För er äldre resenärer som \n" +
+                        "längtar efter en avkopplande resa är detta\n" +
+                        "fartyg ett säkert val. Här kan du njuta av en\n" +
+                        "semester i din egna takt. Aktiviteter som\n "+
+                        "boule och bridge finns tillängliga");
+                oldText.setFont(Font.font("Helvetica",13));
 
 
-                bottom.getChildren().addAll(bokaImgView, partyRec, partyBox, luxBox, childBox, oldBox, partyB, luxuryL, childrenV, opV);
+                bottom.getChildren().addAll(bokaImgView, partyRec, partyBox,partyText, luxBox,luxText, childBox, oldBox,oldText , partyB, luxuryL, childrenV, childText, opV);
             }
             if (a == 4) //Samarbetspartners
             {
@@ -187,9 +216,26 @@ public class MainFrame2kommaNoll extends Application {
                 Rectangle textBox1 = new Rectangle(340, 10, 620, 480);
                 textBox1.setFill(Color.LINEN);
 
+                Text textElwin = new Text(670, 80,"Cruise Control är stolta sammarbetspartners med Elwin & CO." +
+                        "\nE & CO levererar mat till olika företag och privatpersoner och har " +
+                        "samarbetsavtal med flera konferensanläggningar, företag och festlokaler i Stockholm.");
+                textElwin.setFont(Font.font("Helvetica", 14));
+                textElwin.setWrappingWidth(250);
+
                 Rectangle sam = new Rectangle(660,60,270,140);
                 sam.setFill(Color.WHITESMOKE);
                 sam.setStroke(Color.PEACHPUFF);
+
+                Text textLifeEvent = new Text(670, 270, "För att kunna erbjuda våra kunder med bäst underhållning " +
+                        "har vi LifeEvent som ansvariga för att erbjuda all er underhållning på våra fartyg. " +
+                        "De är ledande inom event planering och har vunnit priser som exempelvis \"Nordens Bästa Event företag\".");
+                textLifeEvent.setFont(Font.font("Helvetica", 14));
+                textLifeEvent.setWrappingWidth(250);
+
+                Rectangle sam1 = new Rectangle(660,250,270,140);
+                sam1.setFill(Color.WHITESMOKE);
+                sam1.setStroke(Color.PEACHPUFF);
+
                 Image elwinPhoto = new Image("file:images/projekt/samarbete/elwingScaled.jpg");
                 ImageView elwin = new ImageView(elwinPhoto);
                 elwin.setY(60);
@@ -200,16 +246,42 @@ public class MainFrame2kommaNoll extends Application {
                 life.setY(260);
                 life.setX(360);
 
-                bottom.getChildren().addAll(bokaImgView, textBox1,sam,elwin,life);
+                bottom.getChildren().addAll(bokaImgView, textBox1, sam,sam1, elwin,life, textElwin, textLifeEvent);
             }
             if (a == 5) //Kontakt
             {
                 bottom.getChildren().removeAll(bottom.getChildren());
 
-                Rectangle textBox1 = new Rectangle(340, 10, 620, 480);
-                textBox1.setFill(Color.LINEN);
 
-                bottom.getChildren().addAll(bokaImgView, textBox1);
+
+                Rectangle textBox1 = new Rectangle(340, 10, 620, 480);
+
+
+
+                textBox1.setFill(Color.LINEN);
+                Text RubrikText = new Text(510, 50, "Kontakta Oss");
+                Text KontaktText = new Text(365, 90, "För att komma i kontakt med oss se nedan: \n " +
+                        " \n" +
+                        "E-Post: kundtjanst@cruisecontrol.se \n " +
+                        " \n" +
+                        "Telefontid vardagar \n " +
+                        "\n" +
+                        "08:00-1700\n" +
+                        "\n" +
+                        "Bokningsfrågor privatperson: 0480-677 677 \n " +
+                        " \n" +
+                        "Fakturafrågor privatperson: 0480-688 688 \n " +
+                        " \n" +
+                        "Bokningsfrågor företag: 0480-699 699 \n " +
+                        "\n" +
+                        "Fakturafrågor företag: 0480-700 000 \n " +
+                        "\n" +
+                        "Vi besvarar alla samtal och mail så snabbt som möjligt ! \n");
+
+                KontaktText.setFont(Font.font("Helvetica", FontWeight.BOLD, 15));
+                RubrikText.setFont(Font.font("Helvetica", FontWeight.NORMAL, 30));
+
+                bottom.getChildren().addAll(bokaImgView, textBox1, KontaktText, RubrikText);
             }
             if (a == 6)//Om oss
             {
