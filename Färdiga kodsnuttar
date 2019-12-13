@@ -8,6 +8,132 @@
 
 //Allt som var lagt här innan är inlagt i SourceCode. 2019-12-12 kl 17:00 -Gustav
 
+//Har fixat en grund för knappar för den första sidan men har haft problem med mer info knappen då jag ej vet hur jag ska koppla den till
+// ombord på våra skepp. Ganska dålig kod men aa ni får dubbelkolla och småfixa om det finns något bättre sätt vi kan komma på.
+--Bravo
+
+if (a == 1) //Boka
+            {
+                bottom.getChildren().removeAll(bottom.getChildren());
+
+                Rectangle textBox1 = new Rectangle(340, 10, 620, 480);
+                textBox1.setFill(Color.LINEN);
+
+                //Bilder fest
+                Image bildFestBat = new Image("file:/Users/mtg/Desktop/Projekt Cruise Control/fest.JPG");
+                ImageView festIW = new ImageView(bildFestBat);
+                festIW.setPreserveRatio(true);
+                festIW.setFitHeight(150);
+                festIW.setX(365);
+                festIW.setY(30);
+
+                //Text för fest båt
+                Text festText = new Text("Boka vår fest kryssning!");
+                festText.setFont(Font.font("Helvetica", 15));
+                festText.setY(195);
+                festText.setX(430);
+
+                //Knapp 1 boka festbåt
+                Button bokaFest = new Button("Gdynia, Polen");
+                bokaFest.setLayoutX(410);
+                bokaFest.setLayoutY(200);
+                bokaFest.setOnAction(event -> {
+                    bottom.getChildren().removeAll(bottom.getChildren());
+
+                });
+
+                //Knapp 2 för bokning av festbåt
+                Button bokaFest2 = new Button("Havanna, Cuba");
+                bokaFest2.setLayoutX(510);
+                bokaFest2.setLayoutY(200);
+                bokaFest2.setOnAction(event -> {
+                    bottom.getChildren().removeAll(bottom.getChildren());
+
+                });
+
+
+                //Bild Pensionärskryssning
+                Image bildOldBat = new Image("file:/Users/mtg/Desktop/Projekt Cruise Control/pensionar.JPG");
+                ImageView oldIW = new ImageView(bildOldBat);
+                oldIW.setPreserveRatio(true);
+                oldIW.setFitHeight(150);
+                oldIW.setX(675);
+                oldIW.setY(30);
+
+                //Text för pensionärs båten
+                Text textOld = new Text("Boka vår pensionärs kryssning!");
+                textOld.setFont(Font.font("Helvetica", 15));
+                textOld.setY(195);
+                textOld.setX(710);
+
+                //Knapp pensionär
+                Button bokaPensionar = new Button("Åland, Sverige");
+                bokaPensionar.setLayoutX(760);
+                bokaPensionar.setLayoutY(200);
+                bokaPensionar.setOnAction(event -> {
+                    bottom.getChildren().removeAll(bottom.getChildren());
+
+                });
+
+                //Bilder familj båt
+                Image bildFamilj = new Image("file:/Users/mtg/Desktop/Projekt Cruise Control/familjbat.jpeg");
+                ImageView familjIW = new ImageView(bildFamilj);
+                familjIW.setPreserveRatio(true);
+                familjIW.setFitHeight(150);
+                familjIW.setX(390);
+                familjIW.setY(240);
+
+                //Familj text
+                Text textFamilj = new Text("Boka våran familjära kryssning!");
+                textFamilj.setFont(Font.font("Helvetica", 15));
+                textFamilj.setX(400);
+                textFamilj.setY(410);
+
+                //Knapp familj boka
+                Button bokaFamilj = new Button("Barcelona, Spanien");
+                bokaFamilj.setLayoutX(440);
+                bokaFamilj.setLayoutY(420);
+                bokaFamilj.setOnAction(event -> {
+                    bottom.getChildren().removeAll(bottom.getChildren());
+
+                });
+                //Bilder lyx båt
+                Image bildLyx = new Image("file:/Users/mtg/Desktop/Projekt Cruise Control/lyx.JPG");
+                ImageView lyxIW = new ImageView(bildLyx);
+                lyxIW.setPreserveRatio(true);
+                lyxIW.setFitHeight(150);
+                lyxIW.setX(695);
+                lyxIW.setY(240);
+
+                //Lyx text
+                Text textLyx = new Text("Boka våran lyxiga kryssning!");
+                textLyx.setFont(Font.font("Helvetica", 15));
+                textLyx.setX(710);
+                textLyx.setY(410);
+
+                //Knapp för bokning av lyx
+                Button bokaLyx = new Button("Kapstaden, Sydafrika");
+                bokaLyx.setLayoutX(730);
+                bokaLyx.setLayoutY(420);
+                bokaLyx.setOnAction(event -> {
+                    bottom.getChildren().removeAll(bottom.getChildren());
+
+                });
+
+                //Knapp för mer info
+                Button knappMerInfo = new Button("Mer info");
+                knappMerInfo.setLayoutX(620);
+                knappMerInfo.setLayoutY(450);
+                knappMerInfo.setOnAction(event -> {
+
+
+                });
+
+
+                bottom.getChildren().addAll(bokaImgView, textBox1, bokaFest, bokaFest2, bokaFamilj, bokaLyx, bokaPensionar, knappMerInfo,
+                        festIW, festText, oldIW, textOld, familjIW, textFamilj, lyxIW, textLyx);
+            }
+
 
 
 
