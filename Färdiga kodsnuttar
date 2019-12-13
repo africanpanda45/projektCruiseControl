@@ -7,3 +7,79 @@
 
 
 //Allt som var lagt här innan är inlagt i SourceCode. 2019-12-12 kl 17:00 -Gustav
+
+
+
+
+//Valet är två knappar (ska vara fyra), där den ena leder dig till en vald destination (Karibien).
+Där  skapas en listview, textfield med mera där användaren kan mata in värden. För att sedan gå vidare så ska man trycka på en knapp, och då hämtas alla värdena som användaren matat in.
+Därefter skapas fyra textfält för namn, personnummer och email.
+
+if (a == 1) //Boka
+{
+    bottom.getChildren().removeAll(bottom.getChildren());
+    Rectangle textBox1 = new Rectangle(340, 10, 620, 480);
+    textBox1.setFill(Color.LINEN);
+    Button dest1 = new Button("Karibien"); dest1.setLayoutX(400); dest1.setLayoutY(20);
+    Button dest2 = new Button("Finland"); dest2.setLayoutX(500); dest2.setLayoutY(20);
+    bottom.getChildren().addAll(bokaImgView,textBox1,dest1,dest2);
+    dest1.setOnAction(new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent event) {
+            bottom.getChildren().removeAll(bottom.getChildren());
+            Text karibien = new Text("Karibien"); karibien.setLayoutX(400); karibien.setLayoutY(20);
+            Text hyttSort = new Text("Välj antal bäddar i din hytt"); hyttSort.setLayoutX(400); hyttSort.setLayoutY(40);
+            ListView <String> hytt = new ListView<>(); hytt.setLayoutX(400); hytt.setLayoutY(60);
+            hytt.getItems().addAll("1","2","4");
+            AtomicInteger val = new AtomicInteger();
+            Text hyttVal = new Text(String.valueOf(val.get()));  hyttVal.setLayoutX(140); hyttVal.setLayoutY(400);
+            hytt.getSelectionModel().selectedIndexProperty().addListener(ov -> {
+                val.set(0);
+                val.set(hytt.getSelectionModel().getSelectedIndex()+1);
+                if(val.get() ==3){
+                    val.set(val.get() + 1);
+                }
+                System.out.println(val.get());
+                hyttVal.setText(String.valueOf(val.get()));
+            });
+
+
+            Text antalRes = new Text("Antal resenärer"); antalRes.setLayoutX(700); antalRes.setLayoutY(40);
+            TextField resInmat = new TextField(); resInmat.setLayoutX(700); resInmat.setLayoutY(60);
+            Button gåVidare = new Button("Gå vidare");
+            gåVidare.setLayoutX(700); gåVidare.setLayoutY(400);
+            bottom.getChildren().addAll(karibien, hytt, resInmat,antalRes,gåVidare,hyttSort,hyttVal);
+            gåVidare.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent actionEvent) {
+                    Text antalResenärer = new Text(resInmat.getText()); antalResenärer.setLayoutY(420); antalResenärer.setLayoutX(140);
+                    bottom.getChildren().removeAll(bottom.getChildren());
+                    Text tidigareVal = new Text("Antal bäddar i hytt:"); tidigareVal.setLayoutY(400);
+                    Text tidigareVal2 = new Text("Antal resenärer:"); tidigareVal2.setLayoutY(420);
+                    karibien.setLayoutX(40); karibien.setLayoutY(400);
+                    Text namnt = new Text("Förnamn"); namnt.setLayoutX(300); namnt.setLayoutY(40);
+                    Text enamnt = new Text("Efternamn");enamnt.setLayoutX(450); enamnt.setLayoutY(40);
+                    Text emailt = new Text("Email"); emailt.setLayoutX(600); emailt.setLayoutY(40);
+                    Text persnrt = new Text("Personnummer"); persnrt.setLayoutX(750); persnrt.setLayoutY(40);
+                    TextField namn = new TextField(); namn.setLayoutX(300); namn.setLayoutY(60);
+                    TextField enamn = new TextField(); enamn.setLayoutX(450); enamn.setLayoutY(60);
+                    TextField email = new TextField(); email.setLayoutX(600); email.setLayoutY(60);
+                    TextField persnr = new TextField(); persnr.setLayoutX(750); persnr.setLayoutY(60);
+                    karibien.setLayoutY(380);
+                    bottom.getChildren().addAll(namnt,enamnt,emailt,persnrt,namn,enamn,email,persnr,tidigareVal,hyttVal,karibien,tidigareVal2,antalResenärer);
+                }
+            });
+
+
+            dest2.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    bottom.getChildren().removeAll(bottom.getChildren());
+                    bottom.getChildren().addAll(dest1);
+                }
+            });
+
+
+        }
+    });
+}
