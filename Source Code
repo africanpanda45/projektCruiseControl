@@ -1,13 +1,13 @@
 package ProjektArbetet;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -21,6 +21,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class MainFrame2kommaNoll extends Application {
 
@@ -127,7 +129,123 @@ public class MainFrame2kommaNoll extends Application {
                 Rectangle textBox1 = new Rectangle(340, 10, 620, 480);
                 textBox1.setFill(Color.LINEN);
 
-                bottom.getChildren().addAll(bokaImgView, textBox1);
+                //Bilder fest
+                Image bildFestBat = new Image("file:images/projekt/ships/Alla bilder/partyBoatScaled.jpg");
+                ImageView festIW = new ImageView(bildFestBat);
+                festIW.setPreserveRatio(true);
+                festIW.setFitHeight(150);
+                festIW.setX(365);
+                festIW.setY(30);
+
+                //Text för fest båt
+                Text festText = new Text("Boka vår festkryssning!");
+                festText.setFont(Font.font("Helvetica", 15));
+                festText.setY(195);
+                festText.setX(430);
+
+                //Knapp 1 boka festbåt
+                Text polen = new Text("Gdynia, Polen");
+                Button bokaFest = new Button(); bokaFest.setText(polen.getText());
+                bokaFest.setLayoutX(410); bokaFest.setLayoutY(200);
+                bokaFest.setOnAction(event -> {
+                    efterDest(bottom,bokaImgView,textBox1);
+                    //Metod/Klass för att återanvända kod eller använda samma eventhandler
+                });
+
+                //Knapp 2 för bokning av festbåt
+                Text cuba = new Text("Havanna, Cuba");
+                Button bokaFest2 = new Button(); bokaFest2.setText(cuba.getText());
+                bokaFest2.setLayoutX(510); bokaFest2.setLayoutY(200);
+                bokaFest2.setOnAction(event -> {
+                    efterDest(bottom,bokaImgView,textBox1);
+                    //Metod/Klass för att återanvända kod eller använda samma eventhandler
+                });
+
+
+                //Bild Pensionärskryssning
+                Image bildOldBat = new Image("file:images/projekt/ships/Alla bilder/onboardOldPeopleExploreScaled.jpg");
+                ImageView oldIW = new ImageView(bildOldBat);
+                oldIW.setPreserveRatio(true);
+                oldIW.setFitHeight(150);
+                oldIW.setX(675);
+                oldIW.setY(30);
+
+                //Text för pensionärs båten
+                Text textOld = new Text("Boka vår pensionärskryssning!");
+                textOld.setFont(Font.font("Helvetica", 15));
+                textOld.setY(195);
+                textOld.setX(710);
+
+                //Knapp pensionär
+                Text sverige = new Text("Åland, Sverige");
+                Button bokaPensionar = new Button(); bokaPensionar.setText(sverige.getText());
+                bokaPensionar.setLayoutX(760); bokaPensionar.setLayoutY(200);
+                bokaPensionar.setOnAction(event -> {
+                    efterDest(bottom,bokaImgView,textBox1);
+                    //Metod/Klass för att återanvända kod eller använda samma eventhandler
+
+                });
+
+                //Bilder familj båt
+                Image bildFamilj = new Image("file:images/projekt/ships/Alla bilder/onboardChildrenSlideScaled.jpg");
+                ImageView familjIW = new ImageView(bildFamilj);
+                familjIW.setPreserveRatio(true);
+                familjIW.setFitHeight(150);
+                familjIW.setX(390);
+                familjIW.setY(240);
+
+                //Familj text
+                Text textFamilj = new Text("Boka våran familjära kryssning!");
+                textFamilj.setFont(Font.font("Helvetica", 15));
+                textFamilj.setX(400);
+                textFamilj.setY(410);
+
+                //Knapp familj boka
+                Text spanien = new Text("Barcelona, Spanien");
+                Button bokaFamilj = new Button(); bokaFamilj.setText(spanien.getText());
+                bokaFamilj.setLayoutX(440); bokaFamilj.setLayoutY(420);
+                bokaFamilj.setOnAction(event -> {
+                    efterDest(bottom,bokaImgView,textBox1);
+                });
+
+                //Bilder lyx båt
+                Image bildLyx = new Image("file:images/projekt/ships/Alla bilder/onboardLuxuryInsideScaled.jpg");
+                ImageView lyxIW = new ImageView(bildLyx);
+                lyxIW.setPreserveRatio(true);
+                lyxIW.setFitHeight(150);
+                lyxIW.setX(695);
+                lyxIW.setY(240);
+
+                //Lyx text
+                Text textLyx = new Text("Boka våran lyxiga kryssning!");
+                textLyx.setFont(Font.font("Helvetica", 15));
+                textLyx.setX(710);
+                textLyx.setY(410);
+
+                //Knapp för bokning av lyx
+                Text sydafrika = new Text("Kapstaden, Sydafrika");
+                Button bokaLyx = new Button(); bokaLyx.setText(sydafrika.getText());
+                bokaLyx.setLayoutX(730); bokaLyx.setLayoutY(420);
+                bokaLyx.setOnAction(event -> {
+                    efterDest(bottom,bokaImgView,textBox1);
+                    //Metod/Klass för att återanvända kod eller använda samma eventhandler
+                });
+
+                //Knapp för mer info
+                Button knappMerInfo = new Button("Mer info");
+                knappMerInfo.setLayoutX(620);
+                knappMerInfo.setLayoutY(450);
+                knappMerInfo.setOnAction(event -> {
+                    efterDest(bottom,bokaImgView,textBox1);
+
+                });
+
+
+                bottom.getChildren().addAll(bokaImgView, textBox1, bokaFest, bokaFest2, bokaFamilj, bokaLyx, bokaPensionar, knappMerInfo,
+                        festIW, festText, oldIW, textOld, familjIW, textFamilj, lyxIW, textLyx);
+                bokaFamilj.setOnAction(event -> {
+                    efterDest(bottom,bokaImgView,textBox1);
+                });
             }
             if (a == 2)//Destinationer
             {
@@ -146,7 +264,7 @@ public class MainFrame2kommaNoll extends Application {
                 //Skapar Ombord på fartyg
                 Rectangle partyRec = new Rectangle(340, 10, 620, 480);
                 partyRec.setFill(Color.LINEN);
-                Image party = new Image("file:images/partyBoatScaled.jpg");
+                Image party = new Image("file:images/projekt/ships/Alla bilder/partyBoatScaled.jpg");
                 ImageView partyB = new ImageView(party);
                 partyB.setY(20);
                 partyB.setX(365);
@@ -163,7 +281,7 @@ public class MainFrame2kommaNoll extends Application {
                 partyText.setFont(Font.font("Helvetica",13));
 
 
-                Image luxury = new Image("file:images/onboardLuxuryInsideScaled.jpg");
+                Image luxury = new Image("file:images/projekt/ships/Alla bilder/onboardLuxuryInsideScaled.jpg");
                 ImageView luxuryL = new ImageView(luxury);
                 luxuryL.setY(245);
                 luxuryL.setX(365);
@@ -177,7 +295,7 @@ public class MainFrame2kommaNoll extends Application {
                         "spatjänster som massage,kallbad osv. ");
                 luxText.setFont(Font.font("Helvetica",13));
 
-                Image children = new Image("file:images/onboardChildrenSlideScaled.jpg");
+                Image children = new Image("file:images/projekt/ships/Alla bilder/onboardChildrenSlideScaled.jpg");
                 ImageView childrenV = new ImageView(children);
                 childrenV.setY(20);
                 childrenV.setX(675);
@@ -192,7 +310,7 @@ public class MainFrame2kommaNoll extends Application {
                 childText.setFont(Font.font("Helvetica",13));
 
 
-                Image oldpeople = new Image("file:images/onboardOldPeopleExploreScaled.jpg");
+                Image oldpeople = new Image("file:images/projekt/ships/Alla bilder/onboardOldPeopleExploreScaled.jpg");
                 ImageView opV = new ImageView(oldpeople);
                 opV.setY(245);
                 opV.setX(675);
@@ -359,5 +477,75 @@ public class MainFrame2kommaNoll extends Application {
         Scene scene = new Scene(root, 1273, 645);
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+
+    private Pane efterDest(Pane bottom, ImageView bokaImgView, Rectangle textBox1){
+        bottom.getChildren().removeAll(bottom.getChildren());
+        Text valdDest = new Text();// valdDest.setText(spanien.getText()); valdDest.setLayoutX(400); valdDest.setLayoutY(20);
+        Text hyttSort = new Text("Välj antal bäddar i din hytt"); hyttSort.setLayoutX(400); hyttSort.setLayoutY(40);
+        ComboBox<String> hytt = new ComboBox<>(); hytt.setLayoutX(400); hytt.setLayoutY(60);hytt.setPrefWidth(100);
+        hytt.getItems().addAll("1","2","4");
+        Text hyttVal = new Text("");
+        hyttVal.setLayoutX(140); hyttVal.setLayoutY(400);
+        hytt.getSelectionModel().selectedIndexProperty().addListener(ov -> {
+            int val =0;
+            val = hytt.getSelectionModel().getSelectedIndex()+1;
+            if(val ==3){
+                val = val + 1;
+            }
+            System.out.println(val);
+            hyttVal.setText(String.valueOf(val));
+        });
+
+
+        Text antalRes = new Text("Antal resenärer"); antalRes.setLayoutX(700); antalRes.setLayoutY(40);
+        TextField resInmat = new TextField(); resInmat.setLayoutX(700); resInmat.setLayoutY(60);
+        Button gåVidare = new Button("Gå vidare");
+        gåVidare.setLayoutX(700); gåVidare.setLayoutY(400);
+        bottom.getChildren().addAll(bokaImgView,textBox1,valdDest, hytt, resInmat,antalRes,gåVidare,hyttSort,hyttVal);
+        gåVidare.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                bottom.getChildren().removeAll(bottom.getChildren());
+                Button gåVidare2 = new Button ("Bekräfta");
+                Text tidigareVal = new Text("Antal bäddar i hytt:" +hyttVal.getText()); tidigareVal.setLayoutX(373);tidigareVal.setLayoutY(400);
+                Text tidigareVal2 = new Text("Antal resenärer:"+resInmat.getText()); tidigareVal2.setLayoutX(373);tidigareVal2.setLayoutY(420);
+                Text namnt = new Text("Förnamn"); namnt.setLayoutX(373); namnt.setLayoutY(150);
+                Text enamnt = new Text("Efternamn");enamnt.setLayoutX(373); enamnt.setLayoutY(205);
+                Text emailt = new Text("Email"); emailt.setLayoutX(373); emailt.setLayoutY(260);
+                Text persnrt = new Text("Personnummer"); persnrt.setLayoutX(373); persnrt.setLayoutY(315);
+                TextField namn = new TextField(); namn.setLayoutX(370); namn.setLayoutY(160);
+                TextField enamn = new TextField(); enamn.setLayoutX(370); enamn.setLayoutY(215);
+                TextField email = new TextField(); email.setLayoutX(370); email.setLayoutY(270);
+                TextField persnr = new TextField(); persnr.setLayoutX(370); persnr.setLayoutY(325);
+                valdDest.setLayoutY(380); valdDest.setLayoutX(0);
+                bottom.getChildren().addAll(bokaImgView,textBox1,namnt,enamnt,emailt,persnrt,namn,enamn,email,persnr,valdDest,tidigareVal,tidigareVal2,gåVidare2);
+                gåVidare2.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent actionEvent) {
+                        bottom.getChildren().removeAll(bottom.getChildren());
+                        Button gåVidare2 = new Button ("Bekräfta");
+                        Text tidigareVal = new Text("Antal bäddar i hytt:" +hyttVal.getText()); tidigareVal.setLayoutX(370);tidigareVal.setLayoutY(400);
+                        Text tidigareVal2 = new Text("Antal resenärer:"+resInmat.getText()); tidigareVal2.setLayoutX(370);tidigareVal2.setLayoutY(420);
+                        Text valdNamn = new Text("Förnamn: "+namn.getText()); valdNamn.setLayoutX(370);valdNamn.setLayoutY(440);
+                        Text valdEnamn = new Text("Efternamn: "+enamn.getText()); valdEnamn.setLayoutX(370);valdEnamn.setLayoutY(460);
+                        Text valdEmail = new Text("Email: "+email.getText()); valdEmail.setLayoutX(370);valdEmail.setLayoutY(480);
+                        Text valdPers = new Text("Personnummer: "+persnr.getText()); valdPers.setLayoutX(370);valdPers.setLayoutY(500);
+                        Button confirm = new Button("Bekräfta"); confirm.setVisible(true);
+                        valdDest.setLayoutY(380); valdDest.setLayoutX(0);
+                        bottom.getChildren().addAll(bokaImgView,textBox1,hyttVal,valdDest,tidigareVal,tidigareVal2,valdNamn,valdEnamn,valdEmail,valdPers,confirm);
+
+                        confirm.setOnAction(e->{
+                            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                            alert.setContentText("Är du säker på att du vill gå vidare?");
+                            alert.showAndWait();
+
+                        });
+
+                    }
+                });
+            }
+        });
+        return bottom;
     }
 }
