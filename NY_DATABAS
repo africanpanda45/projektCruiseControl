@@ -30,3 +30,20 @@ create table Bokning (
 
 Alter TABLE Bokning
 ADD FOREIGN KEY (Datum) references Fartyg(datum);
+
+INSERT INTO Fartyg (Datum, Fartygsnamn, Destination)
+VALUES ('2020-04-01','RMS Titanic','Boston, USA');
+INSERT INTO Fartyg (Datum, Fartygsnamn, Destination)
+VALUES ('2020-05-01','MS Poseidon','Gdynia, Polen');
+INSERT INTO Fartyg (Datum, Fartygsnamn, Destination)
+VALUES ('2020-06-06','HMS Carl Gustaf','Åland, Sverige');
+INSERT INTO Fartyg (Datum, Fartygsnamn, Destination)
+VALUES ('2020-07-04','Uncle Sam','Miami, USA');
+INSERT INTO Fartyg (Datum, Fartygsnamn, Destination)
+VALUES ('2020-02-29','MS Bestonia','Barcelona, Spanien');
+INSERT INTO Fartyg (Datum, Fartygsnamn, Destination)
+VALUES ('2020-12-24','HMS Linné','Kapstaden, Sydafrika');
+INSERT INTO Fartyg (Datum, Fartygsnamn, Destination)
+VALUES ('2021-03-24','RMS Titanic','Boston, USA');
+INSERT INTO Fartyg (Datum, Fartygsnamn, Destination)
+VALUES ('2021-03-29','Harit-Soppai','Helsingfors, Finland');
