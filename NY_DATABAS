@@ -1,0 +1,32 @@
+CREATE SCHEMA cruiscontrol;
+USE cruiscontrol;
+create table Kund
+(
+	Persnr nvarchar(20),
+	Namn NVARCHAR (80),
+	Enamn NVARCHAR (80),
+	Email NVARCHAR (80),
+	constraint Kund_pk
+		primary key (Persnr)
+);
+
+create table Fartyg (Datum int(10),
+  Fartygsnamn NVARCHAR (80),
+  Destination nvarchar(80),
+
+  primary key (Datum, Fartygsnamn)
+);
+
+create table Bokning (
+  Datum int(10),
+  Land NVARCHAR (80),
+  Bäddar int (1),
+  Medresenär int (1),
+  Persnr nvarchar(20),
+
+  primary key (Persnr, Datum),
+
+  foreign key (Persnr) references Kund (Persnr));
+
+Alter TABLE Bokning
+ADD FOREIGN KEY (Datum) references Fartyg(datum);
