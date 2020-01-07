@@ -1,0 +1,636 @@
+package Projektarbete;
+
+import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
+
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.Optional;
+
+public class Projektarbete extends Application {
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+    @Override
+    public void start(Stage primaryStage) {
+        //Innehåll som inte ändrar sig när du klickar på någon av knapparna i menyerna.
+        Image bokaImg = new Image("file:blueSeaScaled.jpg");
+        ImageView bokaImgView = new ImageView(bokaImg);
+        ListView<String> destLista = new ListView<>(); destLista.setLayoutY(50); destLista.setLayoutX(350);
+
+
+        ArrayList<String> destinationLagring = new ArrayList<>();
+        try (
+                Connection conn = DriverManager.getConnection( //Testar att koppla upp sig
+                        "jdbc:mysql://localhost/cruiscontrol?useSSL=false&serverTimezone=UTC", "root", "abc123")) {
+
+            Statement state = conn.createStatement();
+            ResultSet result = state.executeQuery("SELECT Destination FROM Fartyg");
+            String temp = "";           //Temp string för att lagra namn och peta in i arraylisten
+            while (result.next()) {
+                temp = result.getString("Destination");
+                destinationLagring.add(temp);
+                destLista.getItems().add(temp);
+            }
+
+        } catch (
+                SQLException e) {       //Om något går fel, printa ut felmeddelande
+            System.out.println("Något gick fel: " + e.getMessage());
+        }
+
+
+        //Statisk pane som aldrig ändras av menyvalen
+        Pane top = new Pane();
+        top.setPrefSize(1273, 150);
+
+        //Dynamisk pane som ändras av menyvalen
+        Pane bottom = new Pane();
+        bottom.setLayoutX(0);
+        bottom.setLayoutY(150);
+        bottom.setPrefSize(1273, 1123);
+        //Bakgrund för logga
+        Rectangle bakgrund = new Rectangle(0, 0, 1273, 150);
+        bakgrund.setFill(Color.DODGERBLUE);
+
+        //LogoText
+        Label logaText = new Label("Cruise Control");
+        logaText.setFont(Font.font("Palatino Linotype", 68));
+        logaText.setLayoutX(430);
+        logaText.setLayoutY(15);
+        logaText.setTextFill(Color.WHITE);
+        //Effect för logga + tilläggning
+        DropShadow skugga = new DropShadow();
+        logaText.setEffect(skugga);
+
+
+        Rectangle textBox1 = new Rectangle(340, 10, 620, 480);
+        textBox1.setFill(Color.LINEN);
+
+        //Menyval för de olika knapparna
+        ListView<String> menuVal = new ListView<>();
+        menuVal.setPrefWidth(540);
+        menuVal.setPrefHeight(30);
+        menuVal.setLayoutX(380);
+        menuVal.setLayoutY(120);
+        menuVal.setOrientation(Orientation.HORIZONTAL);
+        menuVal.setPadding(new Insets(0, 0, 0, 0));
+        menuVal.setBackground(new Background(new BackgroundFill(Color.ANTIQUEWHITE, null, null)));
+
+        //Lägger till knappar / items till menyn.
+        menuVal.getItems().addAll("Hem", "Boka nu", "Destinationer", "Ombord på våra fartyg", "Samarbetspartners", "Kontakt", "Om oss"
+        );
+
+        //Lägger till en listener som avgör om det klickas eller ej och sätter vad som ska hända om man klickar på menyn.
+        menuVal.getSelectionModel().selectedIndexProperty().addListener((v, oldValue, newValue) -> {
+            int a = menuVal.getSelectionModel().getSelectedIndex();
+            if (a == 0) //Hem
+            {
+                hemSida(bottom,bokaImgView,textBox1);
+            }
+            if (a == 1) //Boka
+            {
+                bokaNu(bottom,bokaImgView,textBox1);
+            }
+            if (a == 2)//Destinationer
+            {
+                destinationer(bottom,bokaImgView,textBox1,destLista);
+            }
+            if (a == 3) //Ombord på fartyg
+            {
+                ombord(bottom,bokaImgView,textBox1);
+            }
+            if (a == 4) //Samarbetspartners
+            {
+                samarbetspartners(bottom,bokaImgView,textBox1);
+            }
+            if (a == 5) //Kontakt
+            {
+                kontakt(bottom,bokaImgView,textBox1);
+            }
+            if (a == 6)//Om oss
+            {
+                omOss(bottom,bokaImgView,textBox1);
+            }
+        });
+
+        //Lägger till allt i top-delen / panen
+        top.getChildren().addAll(bakgrund, logaText, menuVal);
+
+        //Anropar förstasidan inför start
+        hemSida(bottom,bokaImgView,textBox1);
+
+        Group root = new Group(top, bottom);
+        Scene scene = new Scene(root, 1273, 645);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    private Pane destinationer(Pane bottom, ImageView bokaImgView, Rectangle textBox1,ListView<String> destLista){
+        bottom.getChildren().removeAll(bottom.getChildren());
+
+        bottom.getChildren().addAll(bokaImgView,textBox1,destLista);
+        return bottom;
+    }
+
+    private Pane efterDest(Pane bottom, ImageView bokaImgView, Rectangle textBox1, Text valdDest, Text valtDatum, Text valdBåt, Button bakåt, Text datum3){
+        bottom.getChildren().removeAll(bottom.getChildren());
+        valdDest.setLayoutY(360); valdDest.setLayoutX(373);
+        valdDest.setFont(Font.font("Verdana",15));
+        Text hyttSort = new Text("Välj antal bäddar i din hytt"); hyttSort.setLayoutX(400); hyttSort.setLayoutY(40);
+        ComboBox<String> hytt = new ComboBox<>(); hytt.setLayoutX(400); hytt.setLayoutY(60);
+        hytt.setPrefWidth(100);
+        hytt.getItems().addAll("1","2","4");
+
+        Text hyttVal = new Text("");
+        hyttVal.setLayoutX(140); hyttVal.setLayoutY(400);
+        hytt.getSelectionModel().selectedIndexProperty().addListener(ov -> {
+            hyttVal.setText(hytt.getSelectionModel().getSelectedItem());
+        });
+        /* Lägg till funktion som tar fram en hytt baserad på storleken kunden valt
+        och baserat på vilket fartyg eller kryssning det är. Skicka sedan vidare till nästa sida vilket hyttnummer det är
+         */
+
+        bakåt.setOnAction(event ->{
+            datum2(bottom,bokaImgView,textBox1,valdDest,valdBåt,bakåt);
+        });
+
+
+        Text antalRes = new Text("Antal resenärer"); antalRes.setLayoutX(700); antalRes.setLayoutY(40);
+        TextField resInmat = new TextField(); resInmat.setLayoutX(700); resInmat.setLayoutY(60);resInmat.setPrefWidth(100);
+        Button gåVidare = new Button("Gå vidare");
+        gåVidare.setLayoutX(800); gåVidare.setLayoutY(450);
+        bottom.getChildren().addAll(bokaImgView,textBox1, hytt, resInmat,antalRes,gåVidare,hyttSort,valdDest,valtDatum,valdBåt,bakåt);
+        gåVidare.setOnAction(event -> {
+            if(Integer.parseInt(resInmat.getText())>Integer.parseInt(hyttVal.getText())){
+                Alert mindreResenärer = new Alert(Alert.AlertType.INFORMATION);
+                mindreResenärer.setHeaderText("Felmeddelande");
+                mindreResenärer.setContentText("Antalet resenärer överstiger antalet bäddar");
+                mindreResenärer.showAndWait();
+            }
+            else {
+                antalRes(bottom, bokaImgView, textBox1, hyttVal, resInmat, valdDest, valtDatum, valdBåt,bakåt,datum3);
+            }
+
+        });
+        return bottom;
+    }
+
+
+    private Pane datum2(Pane bottom, ImageView bokaImgView, Rectangle textBox1, Text valdDest, Text valdBåt, Button bakåt){
+        bottom.getChildren().removeAll(bottom.getChildren());
+        Text datum = new Text("Välj det datum du vill resa"); datum.setLayoutX(373);datum.setLayoutY(25);
+        ComboBox<String> datumval = new ComboBox<>(); //datumval.getItems().addAll("2019-12-10","2020-04-10","2020-12-10","2021-04-10","2021-12-10","2022-04-10","2022-12-10");
+        datumval.setLayoutX(373); datumval.setLayoutY(40);
+       int radhojd = 23; //Variabel för att autojustera höjden på listviewen
+        datumval.setPrefHeight(datumval.getItems().size()*radhojd+2); datumval.setPrefWidth(125);
+        Button välj = new Button("Välj datum"); välj.setLayoutX(800); välj.setLayoutY(450);
+        Text valtDatum= new Text(""); valtDatum.setLayoutX(373); valtDatum.setLayoutY(340);
+        Text datum3 = new Text("");
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (ClassNotFoundException ex) {
+            System.out.println("Driver did not load");
+        }
+        try(Connection conn = DriverManager.getConnection(
+                "jdbc:mysql://localhost/cruiscontrol?useSSL=false&serverTimezone=UTC",
+                "root", "abc123")) {
+            System.out.println("Connected");
+
+            Statement statement = conn.createStatement();
+            ResultSet resultat = statement.executeQuery("SELECT distinct Datum FROM Fartyg");
+
+            while (resultat.next()) {
+                datumval.getItems().addAll(resultat.getString(1));
+            }
+        } catch (SQLException ex) {
+            //e.getMessage();
+        }
+        datumval.getSelectionModel().selectedIndexProperty().addListener((v, oldValue, newValue) -> {
+            datum3.setText(String.valueOf(datumval.getSelectionModel().getSelectedItem()));
+             valtDatum.setText("Avresedatum: "+String.valueOf(datumval.getSelectionModel().getSelectedItem()));
+        });
+        bottom.getChildren().addAll(bokaImgView,textBox1,datum,datumval,välj,bakåt);
+        välj.setOnAction(event ->{
+            if(datum3.getText().isEmpty()){
+                Alert felDatum = new Alert (Alert.AlertType.INFORMATION);
+                felDatum.setContentText("Vänligen välj ett datum");
+                felDatum.showAndWait();
+            }
+            else {
+                efterDest(bottom, bokaImgView, textBox1, valdDest, valtDatum, valdBåt, bakåt, datum3);
+            }
+        });
+        bakåt.setOnAction(event ->{
+            bokaNu(bottom,bokaImgView,textBox1);
+        });
+        return bottom;
+    }
+
+    private Pane bokaNu(Pane bottom, ImageView bokaImgView, Rectangle textBox1){
+        Button bakåt = new Button ("Bakåt"); bakåt.setLayoutY(450);bakåt.setLayoutX(900);
+        bottom.getChildren().removeAll(bottom.getChildren());
+        Text valdDest = new Text("");
+        Text valdBåt = new Text(""); valdBåt.setLayoutX(550);valdBåt.setLayoutY(360);
+
+        //Bilder fest
+        Image bildFestBat = new Image("file:partyBoatScaled.jpg");
+        ImageView festIW = new ImageView(bildFestBat);
+        festIW.setPreserveRatio(true);
+        festIW.setFitHeight(150); festIW.setX(365); festIW.setY(30);
+
+        //Text för fest båt
+        Text festText = new Text("Boka vår festkryssning!");
+        festText.setFont(Font.font("Helvetica", 15));
+        festText.setY(195); festText.setX(430);
+
+        //Knapp 1 boka festbåt
+        Text polen = new Text("Gdynia, Polen");
+        Button bokaFest = new Button(); bokaFest.setText(polen.getText());
+        bokaFest.setLayoutX(410); bokaFest.setLayoutY(200);
+        bokaFest.setOnAction(event -> {
+            valdBåt.setText("Fisketrålaren");
+            valdDest.setText(polen.getText());
+            datum2(bottom, bokaImgView, textBox1,valdDest,valdBåt,bakåt);
+        });
+
+        //Knapp 2 för bokning av festbåt
+        Text cuba = new Text("Havanna, Cuba");
+        Button bokaFest2 = new Button(); bokaFest2.setText(cuba.getText());
+        bokaFest2.setLayoutX(510); bokaFest2.setLayoutY(200);
+        bokaFest2.setOnAction(event -> {
+            valdBåt.setText("MS Poseidon");
+            valdDest.setText(cuba.getText());
+            datum2(bottom, bokaImgView, textBox1,valdDest,valdBåt,bakåt);
+        });
+
+
+        //Bild Pensionärskryssning
+        Image bildOldBat = new Image("file:onboardOldPeopleExploreScaled.JPG");
+        ImageView oldIW = new ImageView(bildOldBat);
+        oldIW.setPreserveRatio(true);
+        oldIW.setFitHeight(150); oldIW.setX(675); oldIW.setY(30);
+
+        //Text för pensionärs båten
+        Text textOld = new Text("Boka vår pensionärskryssning!");
+        textOld.setFont(Font.font("Helvetica", 15));
+        textOld.setY(195); textOld.setX(710);
+
+        //Knapp pensionär
+        Text sverige = new Text("Åland, Sverige");
+        Button bokaPensionar = new Button(); bokaPensionar.setText(sverige.getText());
+        bokaPensionar.setLayoutX(760); bokaPensionar.setLayoutY(200);
+        bokaPensionar.setOnAction(event -> {
+            valdBåt.setText("HMS Carl Gustaf");
+            valdDest.setText(sverige.getText());
+            datum2(bottom, bokaImgView, textBox1,valdDest,valdBåt,bakåt);
+        });
+
+        //Bilder familj båt
+        Image bildFamilj = new Image("file:onboardChildrenSlideScaled.jpg");
+        ImageView familjIW = new ImageView(bildFamilj);
+        familjIW.setPreserveRatio(true);
+        familjIW.setFitHeight(150); familjIW.setX(390); familjIW.setY(240);
+
+        //Familj text
+        Text textFamilj = new Text("Boka våran familjära kryssning!");
+        textFamilj.setFont(Font.font("Helvetica", 15));
+        textFamilj.setX(400); textFamilj.setY(410);
+
+        //Knapp familj boka
+        Text spanien = new Text("Barcelona, Spanien");
+        Button bokaFamilj = new Button(); bokaFamilj.setText(spanien.getText());
+        bokaFamilj.setLayoutX(440); bokaFamilj.setLayoutY(420);
+        bokaFamilj.setOnAction(event -> {
+            valdBåt.setText("RMS Titanic");
+            valdDest.setText(spanien.getText());
+            datum2(bottom, bokaImgView, textBox1,valdDest,valdBåt,bakåt);
+        });
+        //Bilder lyx båt
+        Image bildLyx = new Image("file:onboardLuxuryInsideScaled.jpg");
+        ImageView lyxIW = new ImageView(bildLyx);
+        lyxIW.setPreserveRatio(true);
+        lyxIW.setFitHeight(150); lyxIW.setX(695); lyxIW.setY(240);
+
+        //Lyx text
+        Text textLyx = new Text("Boka våran lyxiga kryssning!");
+        textLyx.setFont(Font.font("Helvetica", 15));
+        textLyx.setX(710); textLyx.setY(410);
+
+        //Knapp för bokning av lyx
+        Text sydafrika = new Text("Kapstaden, Sydafrika");
+        Button bokaLyx = new Button(); bokaLyx.setText(sydafrika.getText());
+        bokaLyx.setLayoutX(730); bokaLyx.setLayoutY(420);
+        bokaLyx.setOnAction(event -> {
+            valdBåt.setText("Banankartong");
+            valdDest.setText(sydafrika.getText());
+            datum2(bottom, bokaImgView, textBox1,valdDest,valdBåt,bakåt);
+            //Metod/Klass för att återanvända kod eller använda samma eventhandler
+        });
+
+        //Knapp för mer info
+        Button knappMerInfo = new Button("Mer info"); knappMerInfo.setLayoutX(620); knappMerInfo.setLayoutY(450);
+        knappMerInfo.setOnAction(event -> {
+            ombord(bottom, bokaImgView, textBox1);
+        });
+
+        bottom.getChildren().addAll(bokaImgView, textBox1, bokaFest, bokaFest2, bokaFamilj, bokaLyx, bokaPensionar, knappMerInfo,
+                festIW, festText, oldIW, textOld, familjIW, textFamilj, lyxIW, textLyx);
+        return bottom;
+    }
+
+    private Pane antalRes(Pane bottom, ImageView bokaImgView, Rectangle textBox1, Text hyttVal, TextField resInmat, Text valdDest,Text valtDatum,Text valdBåt, Button bakåt,Text datum3) {
+        bottom.getChildren().removeAll(bottom.getChildren());
+        Button gåVidare2 = new Button ("Gå vidare"); gåVidare2.setLayoutX(800); gåVidare2.setLayoutY(450);
+        Text tidigareVal = new Text("Antal bäddar i hytt: "+hyttVal.getText()); tidigareVal.setLayoutY(380); tidigareVal.setLayoutX(373);
+        Text tidigareVal2 = new Text("Antal resenärer: "+resInmat.getText()); tidigareVal2.setLayoutY(400); tidigareVal2.setLayoutX(373);
+        Text namnt = new Text("Förnamn"); namnt.setLayoutX(373); namnt.setLayoutY(120);
+        Text enamnt = new Text("Efternamn");enamnt.setLayoutX(373); enamnt.setLayoutY(175);
+        Text emailt = new Text("Email"); emailt.setLayoutX(373); emailt.setLayoutY(230);
+        Text persnrt = new Text("Personnummer"); persnrt.setLayoutX(373); persnrt.setLayoutY(285);
+        TextField namn = new TextField(); namn.setLayoutX(370); namn.setLayoutY(130);
+        TextField enamn = new TextField(); enamn.setLayoutX(370); enamn.setLayoutY(185);
+        TextField email = new TextField(); email.setLayoutX(370); email.setLayoutY(240);
+        TextField persnr = new TextField(); persnr.setLayoutX(370); persnr.setLayoutY(295);
+        bottom.getChildren().addAll(bokaImgView,textBox1,namnt,enamnt,emailt,persnrt,namn,enamn,email,persnr,tidigareVal,valdDest,valtDatum,valdBåt,tidigareVal2,gåVidare2,bakåt);
+        gåVidare2.setOnAction(event -> {
+            if (namn.getText().isEmpty() || enamn.getText().isEmpty()|| email.getText().isEmpty() || persnr.getText().isEmpty()){
+                Alert enterMore = new Alert(Alert.AlertType.WARNING);
+                enterMore.setContentText("Fyll i alla boxarna!");
+                enterMore.showAndWait();
+
+            }
+            if(persnr.getText().length()<10 || persnr.getText().length()>12){
+                System.out.println("Skit");
+                Alert felPers = new Alert(Alert.AlertType.INFORMATION);
+                felPers.setTitle("Meddelande");
+                felPers.setHeaderText("Fel");
+                felPers.setContentText("Felaktigt personnummer");
+                felPers.showAndWait();
+            }
+            else {
+                fyllInfo(bottom,bokaImgView,textBox1,hyttVal,valdDest,resInmat,namn,enamn,email,persnr,valtDatum,valdBåt,bakåt,datum3);
+            }
+
+        });
+        bakåt.setOnAction(event ->{
+            efterDest(bottom,bokaImgView,textBox1,valdDest,valtDatum,valdBåt,bakåt,datum3);
+        });
+        return bottom;
+    }
+
+    private Pane fyllInfo(Pane bottom, ImageView bokaImgView, Rectangle textBox1, Text hyttVal, Text valdDest, TextField resInmat, TextField namn, TextField enamn, TextField email, TextField persnr, Text valtDatum,Text valdBåt, Button bakåt,Text datum3){
+        bottom.getChildren().removeAll(bottom.getChildren());
+        Button gåVidare2 = new Button ("Bekräfta");
+        Text antalBäddar = new Text("Antal bäddar i hytt: "+ hyttVal.getText()); antalBäddar.setLayoutY(380); antalBäddar.setLayoutX(373);
+        Text antalResenärer = new Text("Antal resenärer: "+resInmat.getText()); antalResenärer.setLayoutY(400); antalResenärer.setLayoutX(373);
+        Text valdNamn = new Text("Förnamn: "+namn.getText()); valdNamn.setLayoutY(420); valdNamn.setLayoutX(373);
+        Text valdEnamn = new Text("Efternamn: "+enamn.getText()); valdEnamn.setLayoutY(440); valdEnamn.setLayoutX(373);
+        Text valdEmail = new Text("Email: "+email.getText()); valdEmail.setLayoutY(460); valdEmail.setLayoutX(373);
+        Text valdPers = new Text("Personnummer: "+persnr.getText()); valdPers.setLayoutY(480); valdPers.setLayoutX(373);
+        Button bekräfta = new Button ("Bekräfta"); bekräfta.setLayoutX(800); bekräfta.setLayoutY(450);
+
+        //FIXA FELHANTERING (EJ BOKSTÄVER TILLÅTNA I PERSNR)
+
+        bottom.getChildren().addAll(bokaImgView,textBox1,antalBäddar,antalResenärer,valdDest,valtDatum,valdNamn,valdEnamn,valdEmail,valdPers,valdBåt,bekräfta,bakåt);
+        bekräfta.setOnAction(event -> {
+            //int persNrInt = (Integer.parseInt(valdPers.getText()));
+
+
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setContentText("Är du säker på att du vill bekräfta?");
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+                try {
+                    Class.forName("com.mysql.jdbc.Driver");
+                } catch (ClassNotFoundException ex) {
+                    System.out.println("Driver did not load");
+                }
+                try (Connection conn = DriverManager.getConnection(
+                        "jdbc:mysql://localhost/cruiscontrol?useSSL=false&serverTimezone=UTC",
+                        "root", "abc123")) {
+
+                    if (valdNamn.getText().isEmpty() || valdEnamn.getText().isEmpty() || valdEmail.getText().isEmpty() || valdPers.getText().isEmpty()) {
+
+                        Alert hej = new Alert(Alert.AlertType.INFORMATION);
+                        hej.setTitle("Meddelande");
+                        hej.setHeaderText("Fel");
+                        hej.setContentText("Fyll i alla fält");
+                        hej.showAndWait();
+
+                    }
+                    else {
+
+                        PreparedStatement kund = conn.prepareStatement("INSERT INTO kund VALUES (?, ?, ?, ?)");
+                        kund.setString(1, persnr.getText());
+                        kund.setString(2, namn.getText());
+                        kund.setString(3, enamn.getText());
+                        kund.setString(4, email.getText());
+                        kund.executeUpdate();
+
+                        PreparedStatement bokning = conn.prepareStatement("INSERT INTO bokning VALUES (?, ?, ?, ?, ?)");
+                        bokning.setString(1, datum3.getText());
+                        bokning.setString(2, valdDest.getText());
+                        bokning.setString(3, hyttVal.getText());
+                        bokning.setString(4, resInmat.getText());
+                        bokning.setString(5, persnr.getText());
+                        bokning.executeUpdate();
+
+                    }
+
+                } catch(SQLException ex){
+                    System.out.println("Something went wrong..." + ex.getMessage());
+                }
+
+                Alert Tack = new Alert(Alert.AlertType.INFORMATION);
+                Tack.setContentText("Tack för din beställning!");
+                Tack.showAndWait();
+
+            };
+
+
+        });
+        bakåt.setOnAction(event ->{
+            antalRes(bottom,bokaImgView,textBox1,hyttVal,resInmat,valdDest,valtDatum,valdBåt,bakåt,datum3);
+        });
+        return bottom;
+    }
+    private Pane ombord(Pane bottom, ImageView bokaImgView, Rectangle textBox1){
+        bottom.getChildren().removeAll(bottom.getChildren());
+
+        //Skapar Ombord på fartyg
+        Rectangle partyRec = new Rectangle(340, 10, 620, 480);
+        partyRec.setFill(Color.LINEN);
+        Image party = new Image("file:images/projekt/ships/partyBoatScaled.jpg");
+        ImageView partyB = new ImageView(party);
+        partyB.setY(20);
+        partyB.setX(365);
+        Rectangle partyBox = new Rectangle(365, 140, 260, 98);
+        partyBox.setFill(Color.WHITESMOKE);
+        partyBox.setStroke(Color.PEACHPUFF);
+
+        Image luxury = new Image("file:images/projekt/ships/onboardLuxuryInsideScaled.jpg");
+        ImageView luxuryL = new ImageView(luxury);
+        luxuryL.setY(245);
+        luxuryL.setX(365);
+        Rectangle luxBox = new Rectangle(365, 380, 260, 98);
+        luxBox.setFill(Color.WHITESMOKE);
+        luxBox.setStroke(Color.PEACHPUFF);
+
+        Image children = new Image("file:images/projekt/ships/onboardChildrenSlideScaled.jpg");
+        ImageView childrenV = new ImageView(children);
+        childrenV.setY(20);
+        childrenV.setX(675);
+        Rectangle childBox = new Rectangle(675, 140, 260, 98);
+        childBox.setFill(Color.WHITESMOKE);
+        childBox.setStroke(Color.PEACHPUFF);
+        Image oldpeople = new Image("file:images/projekt/ships/onboardOldPeopleExploreScaled.jpg");
+        ImageView opV = new ImageView(oldpeople);
+        opV.setY(245);
+        opV.setX(675);
+        Rectangle oldBox = new Rectangle(675, 380, 260, 98);
+        oldBox.setFill(Color.WHITESMOKE);
+        oldBox.setStroke(Color.PEACHPUFF);
+
+
+        bottom.getChildren().addAll(bokaImgView,textBox1, partyRec, partyBox, luxBox, childBox, oldBox, partyB, luxuryL, childrenV, opV);
+        return bottom;
+    }
+    private Pane samarbetspartners(Pane bottom, ImageView bokaImgView, Rectangle textBox1)
+    {
+        bottom.getChildren().removeAll(bottom.getChildren());
+
+        Rectangle sam = new Rectangle(660,60,270,140);
+        sam.setFill(Color.WHITESMOKE);
+        sam.setStroke(Color.PEACHPUFF);
+        Image elwinPhoto = new Image("file:images/projekt/samarbete/elwingScaled.jpg");
+        ImageView elwin = new ImageView(elwinPhoto);
+        elwin.setY(60);
+        elwin.setX(360);
+
+        Image lifePhoto = new Image("file:images/projekt/samarbete/lifeEventScaled.jpg");
+        ImageView life = new ImageView(lifePhoto);
+        life.setY(260);
+        life.setX(360);
+
+        bottom.getChildren().addAll(bokaImgView,textBox1,sam,elwin,life);
+        return bottom;
+    }
+    private Pane kontakt(Pane bottom, ImageView bokaImgView, Rectangle textBox1){
+        bottom.getChildren().removeAll(bottom.getChildren());
+
+        Text RubrikText = new Text(510, 50, "Kontakta Oss");
+        Text KontaktText = new Text(365, 90, "För att komma i kontakt med oss se nedan: \n " +
+                " \n" +
+                "E-Post: kundtjanst@cruisecontrol.se \n " +
+                " \n" +
+                "Telefontid vardagar \n " +
+                "\n" +
+                "08:00-1700\n" +
+                "\n" +
+                "Bokningsfrågor privatperson: 0480-677 677 \n " +
+                " \n" +
+                "Fakturafrågor privatperson: 0480-688 688 \n " +
+                " \n" +
+                "Bokningsfrågor företag: 0480-699 699 \n " +
+                "\n" +
+                "Fakturafrågor företag: 0480-700 000 \n " +
+                "\n" +
+                "Vi besvarar alla samtal och mail så snabbt som möjligt ! \n");
+
+        KontaktText.setFont(Font.font("Helvetica", FontWeight.BOLD, 15));
+        RubrikText.setFont(Font.font("Helvetica", FontWeight.NORMAL, 30));
+
+        bottom.getChildren().addAll(bokaImgView, textBox1, KontaktText, RubrikText);
+        return bottom;
+    }
+
+    private Pane omOss(Pane bottom, ImageView bokaImgView, Rectangle textBox1){
+        bottom.getChildren().removeAll(bottom.getChildren());
+
+        Text rubrikOmOss = new Text(365, 50, "Cruise Control AB");
+        rubrikOmOss.setFont(Font.font("Helvetica", FontWeight.BOLD,20));
+
+        Text omOssText = new Text(365, 80, "Cruise Control är Nordens största bokningssajt för kryssningar. Verksamheten drivs från Växjö men vi erbjuder avgångar från flera olika städer.\n" +
+                "\n" +
+                "Cruise Control AB är ett privatägt företag som har målet att erbjuda er kunder resor för alla tillfällen. Bolaget äger inga fartyg men sammarbetar har sammarbeten med flera stora bolag för att erbjuda en resa till bästa förmånliga pris.\n" +
+                "\n" +
+                "Verksamheten tar stort ansvar gällande kraven på säkerhet, komfort och miljöhänsyn. Däräför är vi säkra på att våra tjänster som vi erbjuder kommer att vara enligt våra höga krav och kommer att tillfredställa alla våra kunder. Cruise Controls system uppdateras och förbättras regelbundet så att allt via våran hemsida ska fungera så smidigt som möjligt.\n" +
+                "\n" +
+                "Bolaget jobbar nu med att i framtiden kunna erbjuda hotell för varje destination som vi erbjuder men detta kommer att komma 2022.\n" +
+                "\n" +
+                "Under 2019 reste 9.8 miljoner passagerare med fartygen och rederiet transporterade närmare 365 000 fraktenheter.\n" +
+                "\n" +
+                "Cruise Control erbjuder något för alla åldrar och du är välkommen att kontakta oss när du vill!");
+        omOssText.setFont(Font.font("Helvetica", 14));
+        omOssText.setWrappingWidth(580);
+        bottom.getChildren().addAll(bokaImgView, textBox1, rubrikOmOss, omOssText);
+        return bottom;
+    }
+
+    private Pane hemSida(Pane bottom, ImageView bokaImgView, Rectangle textBox1){
+        bottom.getChildren().removeAll(bottom.getChildren());
+        //Bakgrunden - finns alla val 0-6 (1-7)
+        //ruta för att hålla all text.
+        VBox textRutaHem = new VBox();
+        textRutaHem.setLayoutX(375);
+        textRutaHem.setLayoutY(30);
+        Label headerUppLeft = new Label("Boka din nästa upplevelse med oss!");
+        headerUppLeft.setFont(Font.font("Helvetica", FontWeight.BOLD, 20));
+        Text sidoText = new Text();
+        sidoText.setFont(Font.font("Helvetica",14));
+        sidoText.setText("Vi är Nordens största bokningssajt för kryssningar. Hos oss hittar du resor inom alla kategorier " +
+                "där vi erbjuder alternativ för dig som vill koppla av med familjen eller vill delta i festliga sammanhang och mycket, mycket mer!" +
+                "\n\nÄr du intresserad av att festa loss i en vecka? Vill du kanske ta det lugnt i solstolen eller ta med " +
+                "barnen på en upplevelse de sent kommer glömma? Cruise Control erbjuder något för alla åldrar." +
+                "\n\n" +
+                "Läs mer om våra fartyg här" +
+                "\n\n" +
+                "Läs mer om våra samarbets-\npartners här");
+
+        sidoText.setWrappingWidth(550);
+        //Knapp för att visa skeppen
+        Image vid = new Image("File:vidareScaled.jpg");
+        ImageView vidareView = new ImageView(vid);
+        Button visaShips = new Button();
+        visaShips.setGraphic(vidareView);
+        visaShips.setLayoutX(560);
+        visaShips.setLayoutY(208);
+        visaShips.setOnAction(event ->{
+            ombord(bottom,bokaImgView,textBox1);
+        });
+
+        //Knapp för att läser mer om våra sammarbetspartners.
+        Image vid2 = new Image("File:vidareScaled.jpg");
+        ImageView vidareView2 = new ImageView(vid2);
+        Button visaSamP = new Button();
+        visaSamP.setGraphic(vidareView2);
+        visaSamP.setLayoutX(560);
+        visaSamP.setLayoutY(248);
+        visaSamP.setOnAction(event -> {
+            samarbetspartners(bottom,bokaImgView,textBox1);
+        });
+
+        textRutaHem.getChildren().addAll(headerUppLeft,sidoText);
+        bottom.getChildren().addAll(bokaImgView,textBox1,textRutaHem,visaSamP,visaShips);
+        return bottom;
+    }
+}
