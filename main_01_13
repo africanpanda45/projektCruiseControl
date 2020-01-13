@@ -458,7 +458,7 @@ public class Projektarbetet2 extends Application {
                 enterMore.setContentText("Fyll i alla boxarna!");
                 enterMore.showAndWait();
             }
-            else if(persnrFält.getText().length()<10 || persnrFält.getText().length()>12){
+            else if(persnrFält.getText().length()<10 || persnrFält.getText().length()>12 || persnrFält.getText().length()==11){
                 Alert felPers = new Alert(Alert.AlertType.WARNING);
                 felPers.setTitle("Meddelande");
                 felPers.setHeaderText("Fel");
