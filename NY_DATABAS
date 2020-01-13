@@ -1,3 +1,4 @@
+
 CREATE SCHEMA cruiscontrol;
 USE cruiscontrol;
 create table Kund
@@ -10,26 +11,27 @@ create table Kund
 		primary key (Persnr)
 );
 
-create table Fartyg (Datum int(10),
+create table Fartyg (Datum nvarchar(20),
   Fartygsnamn NVARCHAR (80),
   Destination nvarchar(80),
-
   primary key (Datum, Fartygsnamn)
 );
 
 create table Bokning (
-  Datum int(10),
+  Datum nvarchar(20),
   Land NVARCHAR (80),
   Bäddar int (1),
   Medresenär int (1),
   Persnr nvarchar(20),
-
+  Pris int(10),
   primary key (Persnr, Datum),
 
   foreign key (Persnr) references Kund (Persnr));
 
 Alter TABLE Bokning
 ADD FOREIGN KEY (Datum) references Fartyg(datum);
+
+
 INSERT INTO Fartyg (Datum, Fartygsnamn, Destination)
 VALUES ('2020-04-01','RMS Titanic','Boston, USA');
 INSERT INTO Fartyg (Datum, Fartygsnamn, Destination)
@@ -52,4 +54,5 @@ INSERT INTO Fartyg (Datum, Fartygsnamn, Destination)
 VALUES ('2021-07-14','Noahs Ark','Tel Aviv, Israel');
 INSERT INTO Fartyg (Datum, Fartygsnamn, Destination)
 VALUES ('2021-08-30','Wasa','Rotterdam, Nederländerna');
-
+INSERT INTO Fartyg (Datum, Fartygsnamn, Destination)
+VALUES ('2020-08-30','Silja Line','Havanna, Cuba');
